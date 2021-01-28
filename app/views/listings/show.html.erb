@@ -1,0 +1,36 @@
+<h2><%= @listing.title %></li></h2>
+<h3>Listing posted by: <%= @listing.user.username %></h3>
+<h4>Contact: <%= @listing.user.email%></h4>
+
+Price: $<%= @listing.price %></li><br />
+Duration: <%= @listing.duration %></li><br />
+Approx. Utilities: $<%= @listing.utilities %></li><br />
+Initial Fee: <%= @listing.initial_fee %></li><br />
+Address: <%= @listing.address %></li><br />
+Neighborhood: <%= @listing.neighborhood.neighborhood_name %><br />
+City: <%= @listing.city.city_name %><br />
+Description: <%= @listing.description %></li><br />
+Amenities: <%= @listing.amenities %></li><br />
+# of Room Mates: <%= @listing.room_mates %></li><br />
+# of Bathrooms: <%= @listing.bathrooms %></li><br />
+Laundry in Unit? <%= @listing.cbox_to_s(@listing.laundry_in_unit) %></li><br />
+Pets Allowed? <%= @listing.cbox_to_s(@listing.pets_allowed) %></li><br />
+420 Friendly? <%= @listing.cbox_to_s(@listing.four_twenty_friendly) %></li><br />
+
+<div>
+  <% if @listing.images.attached? %>
+    <% @listing.images.each do |image| %>
+      <%= image_tag(image, style:'width:50%') %>
+    <% end %>
+  <% end %>
+</div>
+
+<% if session[:user_id] %>
+  <% if self.get_current_user.username == @listing.user.username %>
+    <%= link_to "Edit", edit_listing_path(@listing) %>
+    <%= button_to "Delete", @listing, method: 'delete', data: {confirm: "Are you sure?"} %>  
+  <% end %>
+<% end %>
+
+
+

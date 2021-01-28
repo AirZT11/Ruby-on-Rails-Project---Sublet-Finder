@@ -1,0 +1,53 @@
+<% if @listing.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@listing.errors.count, "error") %>
+      prohibited this listing from being saved:
+    </h2>
+ 
+    <ul>
+    <% @listing.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@listing) do |f| %>
+  Title: <%= f.text_field :title %><br />
+  Duration: <%= f.text_field :duration %><br />
+  Price Per Month: $<%= f.text_field :price %><br />
+  Approx. Utilities: $<%= f.text_field :utilities %><br />
+  Initial Fee: <%= f.text_field :initial_fee %><br />
+  Address: <%= f.text_field :address %><br />
+
+  City: <%= f.collection_select :city_id, City.all, :id, :city_name, :include_blank => '-' %><br>
+  
+  <%#= f.fields_for :nbd do |n| %>
+    <%#= n.label :neighborhood_name, 'Neighborhood' %>
+    <%#= n.text_field :neighborhood_name %>
+  <%# end %>
+  
+  Neighborhood: <%= f.text_field :neighborhood_name, list: 'neighborhoods_autocomplete' %>
+    <datalist id='neighborhoods_autocomplete'>
+      <% Neighborhood.all.each do |nbd| %>
+        <option value='<%= nbd.neighborhood_name %>'>
+      <% end %>
+    </datalist> 
+    <br>
+    
+
+  Description: <%= f.text_field :description %><br />
+  Amenities: <%= f.text_field :amenities %><br />
+  Number of Room Mates: <%= f.text_field :room_mates %><br />
+  Number of Bathrooms: <%= f.text_field :bathrooms %><br />
+  Laundry in Unit? <%= f.check_box :laundry_in_unit %><br />
+  Pets Allowed? <%= f.check_box :pets_allowed %><br />
+  420 Friendly? <%= f.check_box :four_twenty_friendly %><br />
+
+  Add Images: <br><%= f.file_field :images, multiple: true %><br>
+
+
+  <%= f.submit 'Submit'%>
+<% end %>
+

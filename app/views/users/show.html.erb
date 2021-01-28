@@ -1,0 +1,28 @@
+<h2><%= @user.name_to_s %></h2>
+Username: <%= @user.username %><br>
+Email: <%= @user.email %><br>
+Phone Number: <% @user.phone_number %><br>
+Age: <%= @user.age %><br>
+Occupation: <%= @user.occupation%><br>
+Bio: <%= @user.bio %><br>
+Social Media: <%= @user.social_media%><br>
+
+Listings: 
+  <% unless @user.listings.count > 0 %>
+    No listings created<br>
+  <% else %>
+    <ul>
+    <% @user.listings.each do |listing| %>
+      <li><%= link_to listing.title, listing_path(listing) %></li>
+    <% end %>
+    </ul>
+  <% end %>
+
+<div>
+  <% if session[:user_id] %>
+    <% if self.get_current_user.username == @user.username %>
+      <%= link_to "Edit", edit_user_path(@user) %>
+      <%= button_to "Delete", @user, method: 'delete' %>
+    <% end %>
+  <% end %>
+</div>

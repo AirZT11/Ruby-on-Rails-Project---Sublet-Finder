@@ -1,0 +1,12 @@
+<h2>Edit Listing</h2>
+<%= render 'form' %>
+
+
+  <% if @listing.images.attached? %>
+    <% @listing.images.each do |image| %>
+      <%= image_tag(image, style:'width:50%') %>
+      <%= link_to 'Remove', delete_image_attachment_listing_url(@listing, image.id), method: :delete %>
+    <% end %>
+  <% end %>
+
+  

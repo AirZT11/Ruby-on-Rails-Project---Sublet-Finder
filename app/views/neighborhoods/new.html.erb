@@ -1,0 +1,5 @@
+<%= form_for(@neighborhood) do |f| %>
+  Neighborhood: <%= f.text_field :neighborhood_name %><br>
+  City:  <%= f.collection_select :city_id, City.all, :id, :city_name %><br>
+  <%= f.submit 'Submit' %>
+<% end %>

@@ -1,0 +1,30 @@
+
+<h1>Sublet Finder Listings</h1>
+
+<div><%= Listing.number_of_listings %></div>
+
+  <% @listings.each do |listing| %>
+
+    <div class="card" style="width: 100%">
+
+      <div class="card-header">
+        <%= link_to listing.title, listing %>
+      </div>
+      <div class="card-body">
+        <div class="card_title">Created by: <%= listing.user.username %></div>
+        <p class="card-text">Price: $<%= listing.price %></p>
+        <p class="card-text">Duration: <%= listing.duration %></p>
+          Images: <br>
+          <% if listing.images.attached? %>
+            <% listing.images.each do |image| %>
+              <%= image_tag(image, style:'width:50%') %>
+            <% end %>
+          <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
